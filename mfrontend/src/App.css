@@ -1,0 +1,51 @@
+@import '~antd/dist/antd.css';
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vw;
+}
+.main {
+  width: 100vw;
+  height: 80vw;
+}
+#siderbar {
+  background-color: #282c34;
+  float: left;
+  width: 20vw;
+  height: 80vw;
+}
+#main1 {
+  background-color: fuchsia;
+  float: right;
+  width: 80vw;
+  height: 80vw;
+}
+#main2 {
+   background-color: forestgreen;
+   float: right;
+   width: 80vw;
+   height: 80vw;
+ }
+#main3 {
+   background-color: rebeccapurple;
+   float: right;
+   width: 80vw;
+   height: 80vw;
+ }
+#header {
+  background-color: aquamarine;
+  float: top;
+  height: 20vw;
+  width: 100vw;
+}
+#footer {
+  background-color: #00B7FF;
+  float: bottom;
+  height: 30vw;
+  width: 100vw;
+}
+#footer>#zus {
+  width: 30%;
+  height: 60%;
+}
+

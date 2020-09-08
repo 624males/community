@@ -9,11 +9,11 @@
         text-color="#fff"
         active-text-color="#ffd04b"
       >
-        <el-menu-item index="1"><a href="" :style="x1"><p class="xx">首页</p></a></el-menu-item>
+        <el-menu-item index="1"><a href="http://localhost:8080" :style="x1"><p class="xx">首页</p></a></el-menu-item>
         <el-submenu index="1">
           <template slot="title"><b class="el-icon-user">个人</b></template>
-            <a href="http://localhost:8080/#/regist" :style="x1"><el-menu-item index="1-2" >注册</el-menu-item></a>
-            <a href="http://localhost:8080/#/login" :style="x1"><el-menu-item index="1-3" >登陆</el-menu-item></a>
+            <a href="http://localhost:8080/regist" :style="x1"><el-menu-item index="1-2" >注册</el-menu-item></a>
+            <a href="http://localhost:8080/login" :style="x1"><el-menu-item index="1-3" >登陆</el-menu-item></a>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><b class="el-icon-menu">相关</b></template>

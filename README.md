@@ -7,5 +7,5 @@ controller部分koa主要负责利用router进行API设计（用户功能部分API），利用对应orm操
 后台管理员账号设计部分：
 登录跳转后可对用户发言进行删除等操作
 view部分由react重构前端请求资源时可能需要后端使用koa2-cors跨域资源共享才可访问到后端路由从数据库返回的数据
-利用vue-router（router-view、router-link :to）和react-router-dom实现组件的局部更新切换利用(hook部分使用 useHistory)
+利用vue-router（router-view、router-link :to）和react-router-dom实现组件的局部更新(hook部分使用 useHistory)
 	

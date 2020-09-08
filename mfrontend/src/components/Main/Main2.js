@@ -1,16 +1,23 @@
 import '../../App.css'
 import React,{useState,useEffect} from 'react'
-import {Link,HashRouter} from 'react-router-dom'
+import {Link,HashRouter,useHistory} from 'react-router-dom'
 import axios from 'axios';
 
 axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('token')
 
 function Main2() {
 
+    const history = useHistory();
+
     useEffect(()=>{
         axios.post('http://localhost:3000/manager/getmanager',localStorage.getItem('token')).then(
-            (res)=>{
-                alert(JSON.stringify(res.data))
+            async (res)=>{
+                if (res.data.code != 0){
+                    await history.push('/');
+                    alert('token过期，请重新登录')
+                } else {
+                    alert('登陆成功')
+                }
             }
         )
     })

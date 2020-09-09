@@ -4,7 +4,7 @@ const cUser = require('../db/createUser')
 const cTitle = require('../db/cTitle')
 
 class UserInfo {
-
+//用户注册
     static async userRegist(data) {
         return await User.create({
             UserName: data.UserName,
@@ -12,7 +12,7 @@ class UserInfo {
             Tel: data.Tel,
         })
     }
-
+//获取某用户数据
     static async getUser(UserName) {
         return await User.findOne({
             where: {
@@ -21,6 +21,12 @@ class UserInfo {
         })
     }
 
+//获取所有用户数据
+    static async getUsers(){
+        return await User.findAll()
+    }
+
+//创建标题
     static async cTitle(data) {
         return await cTitle.create({
             UserName: data.UserName,
@@ -28,7 +34,7 @@ class UserInfo {
             Module: data.Module,
         })
     }
-
+//用户功能之添加文本
     static async cContent(data) {
         const x = await cUser(data.UserName)
         await x.sync({force: false});
@@ -39,7 +45,7 @@ class UserInfo {
             Module: data.Module
         })
     }
-
+//根据标题返回文章
     static async fArticle(data) {
         const x = await cUser(data.UserName)
         return await x.findOne({
@@ -48,11 +54,11 @@ class UserInfo {
             }
         })
     }
-
+//PostList获得所有标题
     static async getTitles() {
         return await cTitle.findAll()
     }
-
+//根据文章的文章作者名获取对应写过的的文章标题
     static async getUserinfo(data) {
         return await cTitle.findAll(
             {

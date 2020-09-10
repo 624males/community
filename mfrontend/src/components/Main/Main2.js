@@ -9,7 +9,7 @@ function Main2() {
 
     const history = useHistory();
 
-    const [Users,setUsers]=useState(['ds','sda','sa']);
+    const [Users,setUsers]=useState([{id: "1", UserName: '张三', title: "zs"}, {id: "2", UserName: "李四", title: 'ls'}]);
 
 
     useEffect(()=>{
@@ -19,23 +19,25 @@ function Main2() {
                     history.push('/');
                     alert('token过期，请重新登录')
                 } else {
-                    axios.get('http://localhost:3000/manager/getusers').then(
-                        (res)=>{
-                            let y = []
-                            for (let i in res.data){
-                                y.push(res.data[i].UserName)
-                            }
-                            {/*setUsers(y)时不断为何不断渲染*/}
-                        }
-                    )
-                }
+                    alert('成功获取数据')
+                }//在渲染时更改state或者props会导致再次渲染然后获取数据导致死循环
             }
         )
     })
 
     return(
         <div id='main2'>
-            {Users}{/*usestate中state能不能为对象*/}
+            {Users.map(item=>{
+                return  <li key={item.id}>{item.UserName}</li>}/*在JSX中不能在子组件中渲染对象，当渲染数组时会将数组转化为字符串*/
+                )}
+            <button onClick={()=>{
+                axios.get('http://localhost:3000/manager/getusers').then(
+                    (res)=>{
+                        setUsers(res.data)
+                        {/*setUsers(y)时不断为何不断渲染*/}
+                    }
+                )
+            }}>aa</button>
         </div>
     )
 }

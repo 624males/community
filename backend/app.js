@@ -43,7 +43,7 @@ app.use(views(__dirname + '/views', {
 app.use(koajwt({
     secret: '123456'
 }).unless({
-    path: [/^\/user\/regist/,/^\/user\/login/,/^\/users/,/^\/manager\/regist/,/^\/manager\/login/,]
+    path: [/^\/user\/regist/,/^\/user\/login/,/^\/users/,/^\/manager\/regist/,/^\/manager\/login/,/^\/manager\/getusers/]
 }))
 
 app.use(async (ctx, next) => {

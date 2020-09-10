@@ -9,7 +9,7 @@ function Main2() {
 
     const history = useHistory();
 
-    const [Users,setUsers]=useState();
+    const [Users,setUsers]=useState(['ds','sda','sa']);
 
 
     useEffect(()=>{
@@ -21,10 +21,13 @@ function Main2() {
                 } else {
                     axios.get('http://localhost:3000/manager/getusers').then(
                         (res)=>{
-                            setUsers(JSON.stringify(res.data))
+                            let y = []
+                            for (let i in res.data){
+                                y.push(res.data[i].UserName)
+                            }
+                            {/*setUsers(y)时不断为何不断渲染*/}
                         }
                     )
-                    alert('登陆成功')
                 }
             }
         )
@@ -32,7 +35,7 @@ function Main2() {
 
     return(
         <div id='main2'>
-            {}
+            {Users}{/*usestate中state能不能为对象*/}
         </div>
     )
 }

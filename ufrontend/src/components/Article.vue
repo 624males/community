@@ -1,8 +1,12 @@
 <template>
   <div class="Article">
-    <router-link :to="{name:'UserInfor',params:{UserName:item.UserName}}">
-      <b>作者：{{item.UserName}}</b>
-    </router-link>
+
+      <b>作者：
+        <router-link :to="{name:'UserInfor',params:{UserName:item.UserName}}">
+          {{item.UserName}}
+        </router-link>
+      </b>
+
     <b>标题：{{item.Title}}</b>
     {{item.Module}}
     <div v-html="item.Content" class="article_content"></div>

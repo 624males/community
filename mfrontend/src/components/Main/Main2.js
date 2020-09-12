@@ -9,7 +9,7 @@ function Main2() {
 
     const history = useHistory();
 
-    const [Users,setUsers]=useState([{id: "1", UserName: '张三', title: "zs"}, {id: "2", UserName: "李四", title: 'ls'}]);
+    const [Users,setUsers]=useState([{id: "", UserName: '', title: ""}]);
 
 
     useEffect(()=>{
@@ -28,7 +28,13 @@ function Main2() {
     return(
         <div id='main2'>
             {Users.map(item=>{
-                return  <li key={item.id}>{item.UserName}</li>}/*在JSX中不能在子组件中渲染对象，当渲染数组时会将数组转化为字符串*/
+                return <HashRouter>
+                         <li key={item.id}>
+                             <Link to={'/contents/'+item.UserName}>
+                                 {item.UserName}
+                             </Link>
+                         </li>
+                       </HashRouter>}/*在JSX中不能在子组件中渲染对象，当渲染数组时会将数组转化为字符串*/
                 )}
             <button onClick={()=>{
                 axios.get('http://localhost:3000/manager/getusers').then(

@@ -14,7 +14,7 @@
         </li>
         <li class="item" v-for="item in items.reverse().slice((page-1)*limit,page*limit)">
           <span class="count">
-            <span>{{item.UserName}}</span>
+            <span><b>{{item.UserName}}</b></span>
             <span>{{item.Module}}</span>
           </span>
           <router-link :to="{name:'Article',params:{UserName:item.UserName,Title:item.Title}}">

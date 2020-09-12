@@ -29,7 +29,7 @@ export default {
   },
   methods: {
   	getUserInfor() {
-  		this.$http.post(`http://localhost:3000/users/userinfo/${this.$route.params.UserName}`,)
+  		this.$http.get(`http://localhost:3000/users/userinfo/${this.$route.params.UserName}`,)
 				.then(res => {
             this.userinfor = res.data
           }

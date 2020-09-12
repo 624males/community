@@ -16,7 +16,7 @@ class UserInfo {
     static async getUser(UserName) {
         return await User.findOne({
             where: {
-                UserName
+                UserName:UserName
             }
         })
     }
@@ -34,6 +34,18 @@ class UserInfo {
             Module: data.Module,
         })
     }
+
+    //删除标题
+    static async dTitle(data) {
+        return await cTitle.destroy({
+            where:{
+                Title:data.Title
+            }
+        })
+    }
+
+
+
 //用户功能之添加文本
     static async cContent(data) {
         const x = await cUser(data.UserName)
@@ -45,6 +57,17 @@ class UserInfo {
             Module: data.Module
         })
     }
+//删除文本
+    static async dContent(data) {
+        const x = await cUser(data.UserName)
+        await x.sync({force: false});
+        return await x.destroy({
+            where:{
+                Title:data.Title
+            }
+        })
+    }
+
 //根据标题返回文章
     static async fArticle(data) {
         const x = await cUser(data.UserName)

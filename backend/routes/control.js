@@ -21,5 +21,13 @@ router.get('/getusers',async (ctx)=>{
     ctx.body = await User.getUsers()
 })
 
+router.post('/delete',async (ctx)=>{
+    const x = ctx.request.body
+    await console.log(x)
+    await User.dContent(x)
+    await User.dTitle(x)
+    ctx.body = 1
+})
+
 
 module.exports = router

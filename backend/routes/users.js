@@ -22,7 +22,7 @@ router.get('/titles', async (ctx)=>{
     ctx.body = await User.getTitles()
 })
 
-router.post('/userinfo/:x', async (ctx)=>{
+router.get('/userinfo/:x', async (ctx)=>{
     ctx.body = await User.getUserinfo(ctx.params.x)
 })
 

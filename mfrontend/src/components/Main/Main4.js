@@ -37,6 +37,7 @@ function Main4(props) {
                                     axios.post('http://localhost:3000/manager/delete',{UserName:item.UserName,Title:item.Title}).then(async (res)=>{
                                         if (res.data == 1){
                                             await alert('删除成功')
+                                            history.go(0)//页面回退0页即刷新
                                         }
                                     })
                                 }}>删除</button>

@@ -39,7 +39,21 @@ function Header(){
     const regist =()=>{
             if (button == '注册') {
                 if(form.getFieldValue('ICode') == '521lczys') {
-                    axios.post('http://localhost:3000/manager/regist', form.getFieldsValue())
+                    axios.post('http://localhost:3000/manager/regist', form.getFieldsValue()).then((res)=>{
+                        switch (res.data.code) {
+                            case -1:
+                                alert('用户已存在');
+                                break;
+                            case 1:
+                                alert('注册成功');
+                                break;
+                            case -2:
+                                alert('参数不齐全');
+                                break;
+                            default:
+                                break;
+                        }
+                    })
                 }  else {
                     alert('请输入正确内邀码')
             }

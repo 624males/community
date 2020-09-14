@@ -5,7 +5,7 @@ var multer = require('koa-multer')
 var storage = multer.diskStorage({
     //存储路径
     destination: function (req, file, cb) {
-        cb(null, '../ufrontend/src/assets')
+        cb(null, '../ufrontend/static')
     },
     //存储文件名
     filename: function (req, file, cb) {
@@ -27,7 +27,8 @@ router.get('/userinfo/:x', async (ctx)=>{
 })
 
 router.post('/photos',upload.single('image'),async (ctx)=>{
-    ctx.body = `/${ctx.req.file.originalname}`
+    ctx.body = `../../static/${ctx.req.file.originalname}`
+    console.log(ctx.req.file.originalname)
 })
 
 

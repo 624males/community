@@ -11,7 +11,7 @@ function resolve (dir) {
 
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, '../'),//context为webpack寻找相对路径的文件时的根目录
   entry: {
     app: './src/main.js'
   },
@@ -22,9 +22,9 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
-  resolve: {
+  resolve: {//配置Webpack如何寻找模块所对应的文件
     extensions: ['.js', '.vue', '.json'],
-    alias: {
+    alias: {//通过别名来把原导入路径映射成一个新的导入路径
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
     }

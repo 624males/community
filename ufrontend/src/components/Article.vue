@@ -11,8 +11,8 @@
     {{item.Module}}
     <div v-html="item.Content" class="article_content"></div>
     <div class="article_loading" v-if="isLoading">
-            <img src="../assets/1.gif">
-          </div>
+      <img src="../assets/1.gif">
+    </div>
   </div>
 
 </template>
@@ -98,6 +98,11 @@ export default {
 .article_content {
   margin: 10px;
   padding: 0 24px;
+}
+
+.article_content >>> img{
+  max-width:80%;
+  height:auto;
 }
 .reply {
   margin-top: 14px;

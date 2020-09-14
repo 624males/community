@@ -13,9 +13,6 @@ function Siderbar() {
                 <Breadcrumb.Item>
                     <Link to='/sd'>sd</Link>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <Link to='/sb'>sb</Link>
-                </Breadcrumb.Item>
             </Breadcrumb>
             </HashRouter>
         </div>

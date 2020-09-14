@@ -42,7 +42,7 @@ class ManagerController {
             } catch (error) {
                 ctx.response.status = 416;
                 ctx.body = {
-                    code: -1,
+                    code: -2,
                     desc: '参数不齐全'
                 }
             }

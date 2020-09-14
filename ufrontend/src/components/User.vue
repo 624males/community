@@ -76,6 +76,7 @@
             "Content-Type": "multipart/form-data"
           }}).then(res => {
             this.$refs.md.$img2Url(pos, res.data);
+            alert(res.data)
           }).catch(err => {
             console.log(err)
           })

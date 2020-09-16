@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
   	<div class="wrap">
-      <div id="aa" :style="{width:'600px', height:'300px'}" >
+      <div :style="{width:'600px', height:'300px'}">
       </div>
   	</div>
   </div>
@@ -22,10 +22,10 @@ export default {
 <style scoped>
 .wrap {
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto
 }
 .footer {
-  padding: 20px 0px;
+  padding: 20px 0px
 }
 .footer>p:first-child {
   color: #666;

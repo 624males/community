@@ -1,11 +1,14 @@
 'use strict'
+//定义控制台输出样式
 const chalk = require('chalk')
+//语义化版本测试库
 const semver = require('semver')
 const packageConfig = require('../package.json')
+//脚本语言解析器
 const shell = require('shelljs')
 
 function exec (cmd) {
-  return require('child_process').execSync(cmd).toString().trim()
+  return require('child_process').execSync(cmd).toString().trim()//同步执行command
 }
 
 const versionRequirements = [

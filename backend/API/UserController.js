@@ -28,7 +28,7 @@ class UserController {
                                 Password: req.Password,
                                 Tel: req.Tel,
                                 UserName: req.UserName
-                            }
+                            };
                             const data1 = await User.userRegist(param);
                             ctx.response.status = 200;
                             ctx.body = {
@@ -45,7 +45,7 @@ class UserController {
             } catch (error) {
                 ctx.response.status = 416;
                 ctx.body = {
-                    code: -1,
+                    code: -2,
                     desc: '参数不齐全'
                 }
             }
@@ -55,13 +55,6 @@ class UserController {
     //密码登陆
     static async Login(ctx) {
         const req = ctx.request.body;
-        await console.log(req)
-        if (!req.UserName || !req.Password) {
-            return ctx.body = {
-                code: '-1',
-                msg: '用户名或密码不能为空'
-            }
-        } else {
             const data = await User.getUser(req.UserName);
             if (data) {
                 if (data.Password === req.Password) {
@@ -72,28 +65,27 @@ class UserController {
                     const info = {
                         createdAt: data.createdAt,
                         updatedAt: data.updatedAt,
-                        Id: data.Id
-                    }
+                        UserName: data.UserName
+                    };
                     return ctx.body = {
-                        code: '0',
+                        code: 0,
                         token: token,
                         userInfo: JSON.stringify(info),
                         desc: '登陆成功'
                     }
                 } else {
                     return ctx.body = {
-                        code: '-1',
+                        code: -1,
                         desc: '用户密码错误'
                     }
                 }
             } else {
                 return ctx.body = {
-                    code: '-1',
+                    code: -2,
                     desc: '该用户尚未注册'
                 }
             }
         };
-    }
 
     //获取用户信息(除密码外)
     static async GetUser(ctx){
@@ -106,20 +98,19 @@ class UserController {
                 console.log(req)
                 if (!req.UserName) {
                     return ctx.body = {
-                        code: '-1',
+                        code: -1,
                         desc: '参数错误'
                     }
                 } else {
                     let data = await User.getUser(req.UserName);
-                    if (req.Password == data.Password) {
+                    if (aa.Password == data.Password) {
                         const info = {
                             createdAt: data.createdAt,
                             updatedAt: data.updatedAt,
                             Password: data.Password,
                         };
-                        console.log(data)
                         return ctx.body = {
-                            code: '0',
+                            code: 0,
                             userInfo: JSON.stringify(info),
                             desc: '获取用户信息成功'
                         }
@@ -127,20 +118,21 @@ class UserController {
                 }
             } catch (error) {
                 console.log(error)
-                ctx.status = 401;
+                ctx.status = 401;//401即用户无访问权限，需要身份验证
                 return ctx.body = {
-                    code: '-1',
+                    code: -2,
                     desc: '登陆过期，请重新登陆'
                 }
             }
         }else{
             ctx.status = 401;
             return ctx.body = {
-                code: '-1',
+                code: -2,
                 desc: '登陆过期，请重新登陆'
             }
         }
     }
+
 }
 
 module.exports = UserController

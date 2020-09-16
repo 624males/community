@@ -11,20 +11,14 @@ const users = require('./routes/users')
 const control = require('./routes/control')
 const koajwt = require('koa-jwt')
 
-
 // error handler
 onerror(app)
-
-
 
 // middlewares
 app.use(bodyparser(
     {
-
         jsonLimit: '5mb', // 控制body的parse转换大小 default 1mb
-
         formLimit: '4096kb'  //  控制你post的大小  default 56kb
-
     }
 ))
 app.use(json())
@@ -36,9 +30,7 @@ app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
 
-
 // logger
-
 
 app.use(koajwt({
     secret: '123456'

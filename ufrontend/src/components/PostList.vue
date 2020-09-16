@@ -1,9 +1,10 @@
 <template>
   <div class="PostList">
     <div v-if="isLoading" class="loading">
+      <!--主页调取数据时可以使用缓存动画来等待数据加载成功-->
       <img src="../assets/1.gif">
     </div>
-    <div class="wrap" v-else>
+    <div class="wrap">
       <ul class="list">
         <li>
           <span>全部</span>
@@ -12,6 +13,7 @@
           <span>技术&经验</span>
           <span>Q&A</span>
         </li>
+        <!--利用返回数据为数组形式根据页码和reverse，slice将其分割使得到相同数量的数据-->
         <li class="item" v-for="item in items.reverse().slice((page-1)*limit,page*limit)">
           <span class="count">
             <span><b>{{item.UserName}}</b></span>
@@ -22,6 +24,7 @@
           </router-link>
           <span :style="{'float':'right'}">{{TurnTime(item.updatedAt)}}</span>
         </li>
+        <!--分页的@current-change的属性值为一个参数为当前页码的函数-->
         <el-pagination
           @current-change="renderList"
           :page-size="7"
@@ -34,7 +37,6 @@
 </template>
 
 <script>
-import Pagination from './Pagination'
 export default {
   name: 'PostList',
   data() {
@@ -43,17 +45,14 @@ export default {
   		page: 1,
   		limit: 7,
   		items: [],
-      totalPage:20,
+      totalPage:200,
   	};
-  },
-  components: {
-    Pagination,
   },
   methods: {
     renderList(value) {
       this.page = value;
       this.getData();
-      localStorage.setItem('localPage',this.page);
+      localStorage.setItem('localPage',this.page);//保存当前页使得用户可以停留在某页
     },
   	getData: function() {
   		this.$http.get('http://localhost:3000/users/titles').then(res => {
@@ -67,6 +66,7 @@ export default {
     /**
      * @return {string}
      */
+    //定义一个过滤时间的函数
     TurnTime(str) {
       if (!str) {
         return '';

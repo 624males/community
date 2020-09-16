@@ -1,6 +1,7 @@
 'use strict'
+//检查版本
 require('./check-versions')()
-
+//build的Node环境为prod
 process.env.NODE_ENV = 'production'
 
 const ora = require('ora')

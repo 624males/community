@@ -1,8 +1,11 @@
-const mongoose = require('mongoose')
+//mongoose连接配置
+const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/zys',{ useNewUrlParser: true ,useUnifiedTopology: true});
 const con = mongoose.connection;
+
 con.on('error', console.error.bind(console, '连接数据库失败'));
+
 con.once('open',()=>{//con部分可省略，目的是为了检测连接以及连接成功后再进行操作
     //定义一个schema
     let Schema = mongoose.Schema({
@@ -11,7 +14,7 @@ con.once('open',()=>{//con部分可省略，目的是为了检测连接以及连
     });
     Schema.methods.eat = function(){
         console.log("I've eatten one "+this.name);
-    }
+    };
     //继承一个schema
     let Model = mongoose.model("fruit",Schema);
     //生成一个document
@@ -28,4 +31,4 @@ con.once('open',()=>{//con部分可省略，目的是为了检测连接以及连
             console.log(data);
         })
     });
-})
+});

@@ -75,19 +75,19 @@
       },
       methods:{
         // 将图片上传到服务器，返回地址替换到md中
-        imgadd(pos, $file){
+        imgadd(pos, $file){//第一个参数为原图片地址，第二个参数代表其文件本身
+          //将数据放入FormData中,发送到服务端时请求头会自动设置为multipart/form-data
           let formdata = new FormData();
-          formdata.append('image', $file);
-          this.$http.post('http://localhost:3000/users/photos', formdata,{headers: {
-            "Content-Type": "multipart/form-data"
-          }}).then(res => {
+          formdata.append('image', $file);//每段数据可添加对应名字
+          this.$http.post('http://localhost:3000/users/photos', formdata).then(res => {
+            //将服务端返回的图片地址替换原内容
             this.$refs.md.$img2Url(pos, res.data);
-            alert(res.data)
+            alert(res.data);
           }).catch(err => {
-            console.log(err)
+            console.log(err);
           })
         },
-        // 提交
+        // 将内容分别存至用户信息表和标题表
         submit(){
           if (this.html != '' && this.module != '' && this.title != ''){
             this.$http.post('http://localhost:3000/users/info',{Content:this.html,UserName:this.$route.params.UserName,Title:this.title,Module:this.module}).then(
@@ -98,7 +98,7 @@
               duration: 1500,
               message: '提交成功'+this.html});
           } else {
-            alert('无内容不提交哦')
+            alert('无内容不提交哦');
           }
         },
         change(value, render){
@@ -109,6 +109,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

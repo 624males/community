@@ -1,6 +1,7 @@
-const User = require('./User')
+//用户登录注册信息验证API
+const User = require('./User');
 //引入jwt做token验证
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 verToken = (token) => {
     return new Promise((resolve, reject) => {
@@ -10,38 +11,36 @@ verToken = (token) => {
     });
 };
 
-
 class UserController {
     static async Create(ctx) {
         const req = ctx.request.body;
         if (req.UserName && req.Password && req.Tel) {
-                    try {
-                        const query = await User.getUser(req.UserName);
-                        if (query) {
-                            ctx.response.status = 200;
-                            ctx.body = {
-                                code: -1,
-                                desc: '用户已存在'
-                            }
-                        } else {
-                            const param = {
-                                Password: req.Password,
-                                Tel: req.Tel,
-                                UserName: req.UserName
-                            };
-                            const data1 = await User.userRegist(param);
-                            ctx.response.status = 200;
-                            ctx.body = {
-                                code: 0,
-                                desc: '用户注册成功',
-                                userInfo: {
-                                    Tel: req.Tel,
-                                    UserName: req.UserName,
-                                    Password: req.Password
-                                }
-                            }
+            try {
+                const query = await User.getUser(req.UserName);
+                if (query) {
+                    ctx.response.status = 200;
+                    ctx.body = {
+                        code: -1,
+                        desc: '用户已存在'
+                    }
+                } else {
+                    const param = {
+                        Password: req.Password,
+                        Tel: req.Tel,
+                        UserName: req.UserName
+                    };
+                    await User.userRegist(param);
+                    ctx.response.status = 200;
+                    ctx.body = {
+                        code: 0,
+                        desc: '用户注册成功',
+                        userInfo: {
+                            Tel: req.Tel,
+                            UserName: req.UserName,
+                            Password: req.Password
                         }
-
+                    }
+                }
             } catch (error) {
                 ctx.response.status = 416;
                 ctx.body = {
@@ -93,9 +92,7 @@ class UserController {
         const token = ctx.request.header.authorization;
         if(token){
             try {
-                const aa = await verToken(token)
-                console.log(aa)
-                console.log(req)
+                const aa = await verToken(token);
                 if (!req.UserName) {
                     return ctx.body = {
                         code: -1,
@@ -103,7 +100,7 @@ class UserController {
                     }
                 } else {
                     let data = await User.getUser(req.UserName);
-                    if (aa.Password == data.Password) {
+                    if (aa.Password === data.Password) {
                         const info = {
                             createdAt: data.createdAt,
                             updatedAt: data.updatedAt,
@@ -135,4 +132,4 @@ class UserController {
 
 }
 
-module.exports = UserController
+module.exports = UserController;

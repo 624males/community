@@ -1,5 +1,6 @@
-const sequelize = require('./config')
-const Sequelize = require('sequelize')
+//每一个用户对应创建一个表存放文章等数据
+const sequelize = require('./config');
+const Sequelize = require('sequelize');
 
 var cUser = async (data)=> {
     return sequelize.define(data, {
@@ -26,6 +27,6 @@ var cUser = async (data)=> {
     }, {
         define:{freezeTableName: true} // Model 对应的表名将与model名相同
     });
-}
+};
 
 module.exports = cUser;

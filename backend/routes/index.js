@@ -1,17 +1,18 @@
-const Router = require('koa-router')
-const userController = require('../API/UserController')
+//用户注册登录信息验证路由
+const Router = require('koa-router');
+const userController = require('../API/UserController');
 
 const router = new Router({
     prefix: '/user'
 });
 
 //用户注册
-router.post('/regist',userController.Create)
+router.post('/regist',userController.Create);
 
 //密码登陆
-router.post('/login',userController.Login)
+router.post('/login',userController.Login);
 
 //获取用户信息
-router.post('/getuser',userController.GetUser)
+router.post('/getuser',userController.GetUser);
 
-module.exports = router
+module.exports = router;

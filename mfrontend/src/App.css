@@ -1,3 +1,4 @@
+/*引入antd.css替换原css部分内容*/
 @import '~antd/dist/antd.css';
 .App {
   text-align: center;
@@ -20,13 +21,13 @@
   width: 80vw;
   height: 80vw;
 }
-#main2 {
+#managers {
    background-color: forestgreen;
    float: right;
    width: 80vw;
    height: 80vw;
  }
-#main3 {
+#managerinfo {
    background-color: rebeccapurple;
    float: right;
    width: 80vw;
@@ -43,9 +44,5 @@
   float: bottom;
   height: 30vw;
   width: 100vw;
-}
-#footer>#zus {
-  width: 30%;
-  height: 60%;
 }
 

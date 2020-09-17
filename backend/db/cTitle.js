@@ -1,5 +1,6 @@
-const sequelize = require('./config')
-const Sequelize = require('sequelize')
+//新增用户文章标题，主页调用所需
+const sequelize = require('./config');
+const Sequelize = require('sequelize');
 
 var CTitle = sequelize.define('CTitle', {
     UserName: {

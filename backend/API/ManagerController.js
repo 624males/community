@@ -1,5 +1,7 @@
-const User = require('./User')
-const jwt = require('jsonwebtoken')
+//管理者注册、登陆以及信息验证API
+const User = require('./User');
+//引入jwt进行token解析如jwt.verify
+const jwt = require('jsonwebtoken');
 
 verToken = (token) => {
     return new Promise((resolve, reject) => {
@@ -12,7 +14,6 @@ verToken = (token) => {
 class ManagerController {
     static async Create(ctx) {
         const req = ctx.request.body;
-        await console.log(req);
         if (req.ManagerName && req.Password) {
             try {
                 const query = await User.getManager(req.ManagerName);
@@ -26,8 +27,8 @@ class ManagerController {
                     const param = {
                         Password: req.Password,
                         ManagerName: req.ManagerName
-                    }
-                    const data1 = await User.managerRegist(param);
+                    };
+                    await User.managerRegist(param);
                     ctx.response.status = 200;
                     ctx.body = {
                         code: 0,
@@ -52,10 +53,9 @@ class ManagerController {
     //密码登陆
     static async Login(ctx) {
         const req = ctx.request.body;
-        await console.log(req)
         if (!req.ManagerName || !req.Password) {
             return ctx.body = {
-                code: '-1',
+                code: -1,
                 msg: '用户名或密码不能为空'
             }
         } else {
@@ -71,22 +71,22 @@ class ManagerController {
                         createdAt: data.createdAt,
                         updatedAt: data.updatedAt,
                         Id: data.Id
-                    }
+                    };
                     return ctx.body = {
-                        code: '0',
+                        code: 0,
                         token: token,
                         managerInfo: JSON.stringify(info),
                         desc: '登陆成功'
                     }
                 } else {
                     return ctx.body = {
-                        code: '-1',
+                        code: -1,
                         desc: '用户密码错误'
                     }
                 }
             } else {
                 return ctx.body = {
-                    code: '-1',
+                    code: -1,
                     desc: '该用户尚未注册'
                 }
             }
@@ -95,21 +95,18 @@ class ManagerController {
 
     //获取用户信息(除密码外)
     static async GetManager(ctx){
-        const req = ctx.request.body;
         const token = ctx.request.header.authorization;
         if(token){
             try {
-                const aa = await verToken(token)
-                console.log(aa)
-                console.log(req)
+                const aa = await verToken(token);
                 if (!aa.Password) {
                     return ctx.body = {
-                        code: '-1',
+                        code: -1,
                         desc: '参数错误'
                     }
                 } else {
                     let data = await User.getManager(aa.ManagerName);
-                    if (aa.Password == data.Password) {
+                    if (aa.Password === data.Password) {
                         const info = {
                             createdAt: data.createdAt,
                             updatedAt: data.updatedAt,
@@ -117,28 +114,28 @@ class ManagerController {
                         };
                         console.log(data)
                         return ctx.body = {
-                            code: '0',
+                            code: 0,
                             ManagerInfo: JSON.stringify(info),
                             desc: '获取用户信息成功'
                         }
                     }
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
                 ctx.status = 401;
                 return ctx.body = {
-                    code: '-1',
+                    code: -1,
                     desc: '登陆过期，请重新登陆'
                 }
             }
         }else{
             ctx.status = 401;
             return ctx.body = {
-                code: '-1',
+                code: -1,
                 desc: '登陆过期，请重新登陆'
             }
         }
     }
 }
 
-module.exports = ManagerController
+module.exports = ManagerController;

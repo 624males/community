@@ -2,7 +2,9 @@ import '../../App.css'
 import React from 'react'
 function Main1() {
     return(
-        <div id='main1'></div>
+        <div id='main1'>
+
+        </div>
     )
 }
 

@@ -1,28 +1,29 @@
+//显示用户文章
 import '../../App.css'
 import React,{useState,useEffect} from 'react'
-import {Link,HashRouter,useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import axios from 'axios';
 
-function Main4(props) {
+function ManagerInfo(props) {
 
-    const history = useHistory()
+    const history = useHistory();
 
-    const [titles,setTitles] = useState([])
+    const [titles,setTitles] = useState([]);
     let y;
 
     useEffect(()=>{
         axios.get(`http://localhost:3000/users/userinfo/${props.match.params.user}`).then((res=>{
-            y = res.data
+            y = res.data;
         }))
         }
-    )
+    );
 
     const yy = ()=>{
         setTitles(y)
-    }
+    };
 
     return(
-        <div>
+        <div id='managerinfo'>
             {props.match.params.user}{/*此处的user为路由定义时的参数名*/}
             <button onClick={yy}>显示</button>
             {titles.map(item=>{
@@ -47,4 +48,4 @@ function Main4(props) {
         </div>
     )
 }
-export default Main4
+export default ManagerInfo

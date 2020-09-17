@@ -1,11 +1,12 @@
-const Sequelize = require('sequelize')
+//sequelize所需数据库基本配置
+const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
     'zys', // 数据库名
     'zys',// 用户名
     '521lczys', // 密码
     {
-        host: 'rm-bp1h6a1vg5963ajx9wo.mysql.rds.aliyuncs.com',
+        host: 'rm-bp1h6a1vg5963ajx9wo.mysql.rds.aliyuncs.com',//RDS外网地址
         port:'3306',
         dialect: 'mysql',
         // 格式化时间
@@ -15,6 +16,6 @@ const sequelize = new Sequelize(
         },
         timezone: '+08:00' //改为标准时区
     },
-)
+);
 
-module.exports = sequelize
+module.exports = sequelize;

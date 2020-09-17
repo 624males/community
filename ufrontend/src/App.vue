@@ -1,3 +1,4 @@
+<!--主组件-->
 <template>
   <div id="hello">
     <Header></Header>
@@ -27,14 +28,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 #app_main {
   background-color: #e1e1e1;
   padding: 14px 0px;

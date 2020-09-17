@@ -1,5 +1,6 @@
-const sequelize = require('./config')
-const Sequelize = require('sequelize')
+//管理者汇总表
+const sequelize = require('./config');
+const Sequelize = require('sequelize');
 
 var Manager = sequelize.define('manager',{
     ManagerName: {
@@ -18,5 +19,5 @@ var Manager = sequelize.define('manager',{
 
 Manager.sync({ force: false });//当为true时会强制删表新建
 
-module.exports = Manager
+module.exports = Manager;
 

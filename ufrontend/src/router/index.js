@@ -6,10 +6,11 @@ import UserInfor from '../components/UserInfor'
 import User from '../components/User'
 import Regist from '../components/Regist'
 import Login from '../components/Login'
-
-Vue.use(Router)
+//引入使用并导出router到main
+Vue.use(Router);
 
 export default new Router({
+  //采用history模式将url中的#去掉
   mode: 'history',
 	routes: [
 		{

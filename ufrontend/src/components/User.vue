@@ -1,114 +1,99 @@
 <template>
   <div>
-    id:{{items.id}}
-    UserName:{{items.UserName}}
-    Password:{{items.Password}}
-    邮箱：{{items.Tel}}
-    账号创建时间：{{items.createdAt}}
-    账号资料上一次修改时间：{{items.updatedAt}}
-    <div class="markdown">
-      <el-select v-model="module" placeholder="请选择板块">
-        <el-option v-for="item in options" :key="item.value1" :label="item.label1" :value="item.value1"></el-option>
-      </el-select>
-      <el-input type="text" v-model="title" placeholder="请输入标题" :style="{'width':'200px'}"></el-input>
-      <div class="container">
-        <!--@imgAdd属性为添加图片并返回对应链接的方法，需要服务端的如
-        multer存储图片到服务器并返回对应地址，@change为当编辑器内容发生变化时调用方法-->
-        <mavon-editor v-model="content" ref="md" @imgAdd="imgadd" @change="change" style="min-height: 600px">
-        </mavon-editor>
-      </div>
-      <div :style="{'padding-top':'20px'}">
-        <el-button type="primary" @click="submit">提交</el-button>
-      </div>
+    <div class="userhead">
+      <el-avatar src="../../static/1.jpg"></el-avatar>
+      id:{{items.id}}&nbsp&nbsp
+      UserName:{{items.UserName}}&nbsp&nbsp
+      邮箱：{{items.Tel}}&nbsp&nbsp
+      账号资料上一次修改时间：{{items.updatedAt}}
+      &nbsp;&nbsp;
+      <el-button @click="drawer = true" type="info" circle icon="el-icon-date"></el-button>
+      <router-link :to="{name:'message',params:{UserName:this.$route.params.UserName}}">
+        <el-button type="info" circle icon="el-icon-message"></el-button>
+      </router-link>
+      <el-drawer
+        title="我是标题"
+        :visible.sync="drawer"
+        :with-header="false">
+        <el-calendar class="cal"></el-calendar>
+      </el-drawer>
+    </div>
+    <br/>
+    <div class="flex">
+      <span class="item1">
+        <router-link :to="{name:'post',params:{UserName:this.$route.params.UserName}}">
+          <el-button type="info" circle style="width:100px;height:100px; font-size: 40px" icon="el-icon-edit-outline"></el-button>
+        </router-link><br/>
+        <span class="info"><br/>日常水贴</span>
+      </span>
+      <span class="item2">
+        <router-link :to="{name:'rgirl',params:{UserName:this.$route.params.UserName}}">
+          <el-button type="info" circle style="width:100px;height:100px; font-size: 40px" icon="el-icon-cold-drink"></el-button>
+        </router-link><br/>
+        <span class="info"><br/>租借女友</span>
+      </span>
+      <span class="item3">
+          <el-button type="info" circle style="width:100px;height:100px; font-size: 40px" icon="el-icon-baseball"></el-button>
+        <br/>
+        <span class="info"><br/>球球作战</span>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-  import { mavonEditor } from 'mavon-editor'//引入markdown编辑器组件，并在components中引入
-  import 'mavon-editor/dist/css/index.css'//引入响应样式
     export default {
       name: "User",
       data(){
         return{
+          drawer: false,
           items:[],
-          content:'',
-          html:'',
-          module:'',
-          title: '',
-          options:[{
-            value1: '日常',
-            label1: '日常'
-          }, {
-            value1: '心情',
-            label1: '心情'
-          }, {
-            value1: '技术&经验',
-            label1: '技术&经验'
-          }, {
-            value1: 'Q&A',
-            label1: 'Q&A'
-          }]
         }
       },
-      components: {
-        mavonEditor,
-      },
       mounted() {//挂载时想服务端发送验证token并在服务端解析token
-        this.$http.post('http://localhost:3000/user/getuser', {UserName:this.$route.params.UserName}).then(
-          (res)=> {
-            if (res.data.code === 0) {
-              this.$http.post(`http://localhost:3000/users/user/${this.$route.params.UserName}`).then(
-                (res)=>{
-                  this.items = res.data;
-                }
-              )
-            } else if (res.data.code === 1){
-              alert('参数错误');
-              this.$router.push({name:'Login'});
-            } else {
-              alert('用户信息已过期，请重新登陆');
-              this.$router.push({name:'Login'});
+          this.$http.post('http://localhost:3000/user/getuser', {UserName:this.$route.params.UserName}).then(
+            (res)=> {
+              if (res.data.code === 0) {
+                this.$http.post(`http://localhost:3000/users/user/${this.$route.params.UserName}`).then(
+                  (res)=>{
+                    this.items = res.data;
+                  }
+                )
+              } else if (res.data.code === 1){
+                alert('参数错误');
+                this.$router.push({name:'Login'});
+              } else {
+                alert('用户信息已过期，请重新登陆');
+                this.$router.push({name:'Login'});
+              }
             }
-          }
-        )
+          )
       },
-      methods:{
-        // 将图片上传到服务器，返回地址替换到md中
-        imgadd(pos, $file){//第一个参数为原图片地址，第二个参数代表其文件本身
-          //将数据放入FormData中,发送到服务端时请求头会自动设置为multipart/form-data
-          let formdata = new FormData();
-          formdata.append('image', $file);//每段数据可添加对应名字
-          this.$http.post('http://localhost:3000/users/photos', formdata).then(res => {
-            //将服务端返回的图片地址替换原内容
-            this.$refs.md.$img2Url(pos, res.data);
-            alert(res.data);
-          }).catch(err => {
-            console.log(err);
-          })
-        },
-        // 将内容分别存至用户信息表和标题表
-        submit(){
-          if (this.html != '' && this.module != '' && this.title != ''){
-            this.$http.post('http://localhost:3000/users/info',{Content:this.html,UserName:this.$route.params.UserName,Title:this.title,Module:this.module}).then(
-              this.$http.post('http://localhost:3000/users/ctitle',{Title:this.title,UserName:this.$route.params.UserName,Module:this.module})
-            );
-            this.$message.success({
-              showClose: true,
-              duration: 1500,
-              message: '提交成功'+this.html});
-          } else {
-            alert('无内容不提交哦');
-          }
-        },
-        change(value, render){
-          // render 为 markdown 解析后的结果[html]
-          this.html = render;
-        },
-      }
     }
 </script>
 
 <style>
+.userhead{
+  font-family: Arial;
+  font-size: 1.5vw;
+}
+.flex{
+  display: flex;
+}
+.item1,.item2,.item3{
+  margin: 1vw;
+  width: 20vw;
+}
 
+.info{
+  color: dimgray;
+  font-weight: bold;
+  font-size: 1.8vw;
+  font-family: 宋体;
+  text-shadow: 0.1vw 0.2vh 0.2vw azure;
+}
+.cal{
+  width: 25vw;
+  height: 60vw;
+}
 </style>

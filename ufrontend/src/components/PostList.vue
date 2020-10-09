@@ -16,7 +16,7 @@
         <!--利用返回数据为数组形式根据页码和reverse，slice将其分割使得到相同数量的数据-->
         <li class="item" v-for="item in items.reverse().slice((page-1)*limit,page*limit)">
           <span class="count">
-            <span><b>{{item.UserName}}</b></span>
+            <span>{{item.UserName}}</span>
             <span>{{item.Module}}</span>
           </span>
           <router-link :to="{name:'Article',params:{UserName:item.UserName,Title:item.Title}}">
@@ -27,8 +27,8 @@
         <!--分页的@current-change的属性值为一个参数为当前页码的函数-->
         <el-pagination
           @current-change="renderList"
-          :page-size="7"
-          layout="total, prev, pager, next, jumper"
+          :page-size="limit"
+          layout="prev, pager, next, jumper"
           :total="items.length">
         </el-pagination>
       </ul>
@@ -100,14 +100,10 @@ export default {
   	this.getData();
   },
   computed:{
-    xx(){
-      this.dialogFormVisible=true
-    },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .loading {
   text-align: center;
@@ -115,14 +111,14 @@ export default {
 }
 .wrap {
 	width: 85%;
-	margin: 0px auto;
+	margin: 0 auto;
 }
 .list {
-  background-color: #fff;
+  background-color: lightcoral;
 }
 .list>li:first-child {
-	height: 40px;
-	background-color: #f6f6f6;
+	height: 6vh;
+	background-color: #545c64;
 }
 .list>li:last-child {
   height: 30px;
@@ -130,7 +126,7 @@ export default {
 }
 .list>li:first-child>span {
 	line-height: 40px;
-	color: #71bc00;
+	color: azure;
 	font-size: 14px;
 	margin-left: 22px;
 }
@@ -146,9 +142,12 @@ export default {
 	width: 30px;
 	height: 30px;
 }
-.item span {
+span {
+  color: black;
 	display: inline-block;
 	font-size: 12px;
+  font-family: Algerian;
+  font-weight: bold;
 }
 .item .count {
 	width: 80px;
@@ -170,17 +169,5 @@ export default {
 .item .title:hover {
   text-decoration: underline;
 }
-.item .time {
-	float: right;
-	width: 60px;
-	text-align: right;
-	margin-left: 4px;
-	line-height: 30px;
-}
-.item .mini-img {
-	float: right;
-	width: 16px;
-	height: 16px;
-	margin: 7px 0;
-}
+
 </style>

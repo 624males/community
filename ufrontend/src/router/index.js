@@ -6,6 +6,11 @@ import UserInfor from '../components/UserInfor'
 import User from '../components/User'
 import Regist from '../components/Regist'
 import Login from '../components/Login'
+import Post from '../components/functions/Post'
+import Rgirl from '../components/functions/Rgirl'
+import Rent from '../components/functions/Rent'
+import Serve from '../components/functions/Serve'
+import Message from '../components/functions/Message'
 //引入使用并导出router到main
 Vue.use(Router);
 
@@ -34,6 +39,41 @@ export default new Router({
 				main: User,
 			},
 		},
+    {
+     path: '/user/:UserName/message',
+     name:'message',
+     components: {
+       main: Message,
+     }
+    },
+    {
+      path: '/user/:UserName/post',
+      name:'post',
+      components: {
+        main: Post,
+      }
+    },
+    {
+      path: '/user/:UserName/rgirl',
+      name:'rgirl',
+      components: {
+        main: Rgirl,
+      }
+    },
+    {
+      path: '/user/:UserName/rgirl/rent',
+      name:'rent',
+      components: {
+        main: Rent,
+      }
+    },
+    {
+      path: '/user/:UserName/rgirl/serve',
+      name:'serve',
+      components: {
+        main: Serve,
+      }
+    },
     {
       path: '/userinfor/:UserName',
       name: 'UserInfor',

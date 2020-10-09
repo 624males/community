@@ -30,8 +30,11 @@ export default {
 <style>
 
 #app_main {
-  background-color: #e1e1e1;
-  padding: 14px 0px;
+  background-color: lightcoral;
+  padding: 14px 0;
+}
+footer{
+  bottom: 0;
 }
 
 </style>

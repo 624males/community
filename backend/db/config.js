@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
     'zys',// 用户名
     '521lczys', // 密码
     {
-        host: 'rm-bp1h6a1vg5963ajx9wo.mysql.rds.aliyuncs.com',//RDS外网地址
+        host: 'localhost',//RDS外网地址
         port:'3306',
         dialect: 'mysql',
         // 格式化时间

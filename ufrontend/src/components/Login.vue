@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item :style="{'margin-left':'80px'}">
         <el-button @click="()=>{this.form.UserName='';this.form.Password=''}">取 消</el-button>
-        <el-button type="primary" @click="login">确 定</el-button>
+        <el-button type="info" @click="login">确 定</el-button>
       </el-form-item>
     </el-form>
   </div>

@@ -7,11 +7,12 @@ const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 //koa2-cors解决跨域问题
-const  cors =require('koa2-cors');
+const cors = require('koa2-cors');
 //引入路由
 const index = require('./routes/index');
 const users = require('./routes/users');
 const control = require('./routes/control');
+const rgirls = require('./routes/rgirls');
 //填入koa-jwt做用户信息验证
 const koajwt = require('koa-jwt');
 
@@ -41,7 +42,7 @@ app.use(views(__dirname + '/views', {
 app.use(koajwt({
     secret: '123456'
 }).unless({//无需验证的路径
-    path: [/^\/user\/regist/,/^\/user\/login/,/^\/users/,/^\/manager\/regist/,/^\/manager\/login/,/^\/manager\/getusers/]
+    path: [/^\/user\/regist/,/^\/user\/login/,/^\/users/,/^\/manager\/regist/,/^\/manager\/login/,/^\/manager\/getusers/,/^\/rgirls/]
 }));
 
 app.use(async (ctx, next) => {
@@ -59,6 +60,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(control.routes(),control.allowedMethods());
+app.use(rgirls.routes(),rgirls.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {

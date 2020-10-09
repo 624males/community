@@ -8,10 +8,10 @@ import '../App.css'
 function Mainbody() {
     return(
         <HashRouter>
-            {/*在Route中使用exact精确匹配防止在调用其他路由时也误匹配到主页*/}
-            <Route path="/" exact component={Main1} />
-            <Route path="/manager/:user" component={Managers}/>
-            <Route path="/contents/:user" component={ManagerInfo}/>
+                {/*在Route中使用exact精确匹配防止在调用其他路由时也误匹配到主页*/}
+                <Route path="/" exact component={Main1} />
+                <Route path="/manager/:user" component={Managers}/>
+                <Route path="/contents/:user" component={ManagerInfo}/>
         </HashRouter>
     )
 }
